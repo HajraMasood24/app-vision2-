@@ -9,6 +9,7 @@ void golden();
 void reset();
 void login();
 
+int total=0;
 int op;
 string o,m;
 int q;
@@ -70,6 +71,9 @@ while(true)
 	{
 	    login();
 	}
+    else{
+        cout<<"Invalid option";
+    }
     }
 }
 void menu()
@@ -102,7 +106,6 @@ string placeorder()
     
     string o;
     int q;
-    string allo;
     cout <<"Place your order here(type 'done' to finish ordering):"<<endl;
     
     while(true)
@@ -170,23 +173,46 @@ string placeorder()
 }
 int ttlbill(int espressoQ, int cappuccinoQ, int latteQ, int americanoQ, int chaiQ, int greenTeaQ, int chaiLatteQ, int browniesQ, int cheesecakeQ, int cookiesQ)
 {
-    string m;
-	int espressoPrice = 750, cappuccinoPrice = 650, lattePrice = 800, americanoPrice = 500;
-    int chaiPrice = 100, greenTeaPrice = 150, chaiLattePrice = 150;
-    int browniesPrice = 650, cheesecakePrice = 300, cookiesPrice = 500;
-
+    string m,name;
+    int pin;
+    char g;
+	int espressoPrice = 750, cappuccinoPrice = 650, lattePrice = 800, americanoPrice = 500; int chaiPrice = 100, greenTeaPrice = 150, chaiLattePrice = 150; int browniesPrice = 650, cheesecakePrice = 300, cookiesPrice = 500;
+    total = (espressoQ * espressoPrice) +(cappuccinoQ * cappuccinoPrice) +(latteQ  * lattePrice) + (americanoQ * americanoPrice) +(chaiQ * chaiPrice) + (greenTeaQ * greenTeaPrice) + (chaiLatteQ * chaiLattePrice) +(browniesQ * browniesPrice) + (cheesecakeQ * cheesecakePrice) +(cookiesQ * cookiesPrice);
     
-    int total = (espressoQ * espressoPrice) +(cappuccinoQ * cappuccinoPrice) +
-                (latteQ  * lattePrice) + (americanoQ * americanoPrice) +
-                (chaiQ * chaiPrice) + (greenTeaQ * greenTeaPrice) +
-                (chaiLatteQ * chaiLattePrice) +(browniesQ * browniesPrice) +
-                (cheesecakeQ * cheesecakePrice) +(cookiesQ * cookiesPrice);
     cout<<"Choose a payment method:"<<endl;
     cout<<" a.Credit card     b.Cash                    |TYPE a FOR CARD AND b FOR CASH|"<<endl;
     cin>>m;
-    cout<<"Your total bill is:Rs.";
-    cout<< total;
-    cout<<" "<<endl;
+    cout<<"ARE YOU A GOLDEN CARD HOLDER"<<endl;
+    cout<<"a.Yes               b.No"<<endl;
+    cin>>g;
+    if(g=='a'){
+	
+	bool valid= false;
+        cout<<"Enter your username:";
+        cin>>name;
+        cout<<"Enter your pin:";
+        cin>>pin;
+        
+            for(int i=0;i<3;i++)
+            {
+            if(name==username[i] && pin==userpin[i]){
+		valid=true;
+                cout<<"Your total bill is:Rs.";
+                total=total-(total*0.10);
+                cout<< total;
+                cout<<" "<<endl;
+            }
+            } 
+	if(!valid){
+		cout<<"Invalid username or pin!" << endl;
+        }
+      }
+        
+    if(g=='b'){
+        cout<<"Your total bill is:Rs.";
+        cout<< total;
+        cout<<" "<<endl;
+    }
     cout<<"Press enter key to go back to main page"<<endl;
     getch();
     system("cls");
@@ -299,6 +325,7 @@ void golden()
 void login()
 {
 	int pin;
+    char option;
 	cout<<"#####################################################################################"<<endl;
 	cout<<"ENTER PIN"<<endl;
 	cin>>pin;
@@ -311,6 +338,18 @@ void login()
 			cout<<"Dashboard Summary:"<<endl;
 			cout<<"  "<<endl;
 			cout<<"Menu items:20"<<endl;
+            cout<<"a.Total balance"<<endl;
+            cout<<"b.Golden Card information"<<endl;
+            cin>>option;
+            if(option=='a'){
+                cout<<total;
+            }
+            if(option=='b'){
+                for(int i=0;i<3;i++)
+            {
+            cout<<"USERNAME:"<<username[i]<<"\t"<<"PIN:"<<userpin[i]<<endl;
+            }
+            }
 			cout<<"still in process"<<endl;	
 			break;
 			}
